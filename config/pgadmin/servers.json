@@ -1,0 +1,14 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "ledger",
+      "Group": "Servers",
+      "Host": "postgres",
+      "Port": 5432,
+      "MaintenanceDB": "ledger",
+      "Username": "ledger",
+      "PassFile": "/pgpass",
+      "SSLMode": "prefer"
+    }
+  }
+}

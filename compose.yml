@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: ledger-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "${LEDGER_POSTGRES_PORT_HOST}:${LEDGER_POSTGRES_PORT_CONTAINER}"
+    volumes:
+      - ledger_pg_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:8
+    container_name: ledger-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      PGADMIN_CONFIG_SERVER_MODE: ${PGADMIN_CONFIG_SERVER_MODE}
+    ports:
+      - "${PGADMIN_PORT_HOST}:${PGADMIN_PORT_CONTAINER}"
+    depends_on:
+      - postgres
+    volumes:
+      - ledger_pgadmin_data:/var/lib/pgadmin
+      - ./config/pgadmin/servers.json:/pgadmin4/servers.json # preconfigured servers/connections
+      - ./config/pgadmin/pgpass:/pgpass # passwords for the connections in this file
+
+volumes:
+  ledger_pg_data:
+  ledger_pgadmin_data:
