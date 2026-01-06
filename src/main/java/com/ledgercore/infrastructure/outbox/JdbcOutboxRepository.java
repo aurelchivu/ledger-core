@@ -1,4 +1,4 @@
-package com.ledgercore.infrastructure.persistence.jdbc;
+package com.ledgercore.infrastructure.outbox;
 
 import com.ledgercore.application.ports.OutboxRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
